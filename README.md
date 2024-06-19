@@ -27,9 +27,27 @@ Uma lista de requisitos para guiar o desenvolvimento do jogo a longo prazo.
             - [X] O jogo deve permitir a exclusão de times com base no ID
             - [X] O jogo deve permitir a alteração de times cadastrados.
             - [ ] Os atributos iniciais de um time devem ser:
-                - [ ] Nome completo
-                - [ ] <TBD>
+                - [ ] Nome (not null  - string)
+                - [ ] País (not null - string)
+                - [ ] Estado (string)
+                - [ ] Cidade (string)
+                - [ ] Nível Início (not null - integer, de 0 a 100)
+                - [ ] Estádio (id do estádio)
+                - [ ] Cor Primária (not null - rgb)
+                - [ ] Cor Secundária (not null - rgb)
+                - [ ] Técnico (id do técnico)
+                - [ ] Jogadores (array/lista de id de jogadores)
         - [ ] O menu personalizar deve ter a opção de Editar Jogadores
+            - [ ] O jogo deve permitir a criação de jogadores
+            - [ ] O jogo deve permitir a visualização de jogadores criados como tabela com barra de rolagem.
+            - [ ] O jogo deve permitir a exclusão de jogadores com base no ID
+            - [ ] O jogo deve permitir a alteração de jogadores cadastrados.
+            - [ ] Os atributos iniciais de um jogador devem ser:
+                - [ ] Nome (not null  - string)
+                - [ ] País (not null - string)
+                - [ ] Idade (not null - integer, de 0 a 100)
+                - [ ] Nível Início (not null - integer, de 0 a 100)
+                - [ ] Posição (not null string)
         - [ ] O menu personalizar deve ter a opção de Editar Campeonatos
         - [ ] O menu personalizar deve ter a opção de Editar Estádios
 2. Gerenciamento de Times

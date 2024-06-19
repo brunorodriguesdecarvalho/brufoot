@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from persistence.database import update_team_in_db
+from persistence.team_dao import update_team_in_db
 from ui.frames.base_frame import BaseFrame
 
 class TeamEditFrame(BaseFrame):

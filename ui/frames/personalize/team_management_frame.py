@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from persistence.database import get_teams_from_db, delete_team_from_db
+from persistence.team_dao import get_teams_from_db, delete_team_from_db
 from ui.frames.base_frame import BaseFrame
 
 
@@ -89,7 +89,7 @@ class TeamManagementFrame(BaseFrame):
             self.tree.insert("", tk.END, values=("Não há registros.", "", ""))
         else:
             for team in teams:
-                self.tree.insert("", tk.END, values=(team['id'], team['name'], team['city'], team['stadium']))
+                self.tree.insert("", tk.END, values=(team['id'], team['name'], team['city'], team['stadium_id']))
 
     def update_teams_list(self):
         self.list_teams()
