@@ -27,16 +27,22 @@ Uma lista de requisitos para guiar o desenvolvimento do jogo a longo prazo.
             - [X] O jogo deve permitir a exclusão de times com base no ID
             - [X] O jogo deve permitir a alteração de times cadastrados.
             - [ ] Os atributos iniciais de um time devem ser:
-                - [ ] Nome (not null  - string)
+                - [X] Nome (not null  - string)
                 - [ ] País (not null - string)
+                    - [ ] O jogo deve permitir a escolha do país através de uma lista de países.
                 - [ ] Estado (string)
+                    - [ ] O jogo não deve permitir informar o estado se o país não for Brasil.
+                    - [ ] O jogo deve permitir a escolha do estado se o país for Brasil.
                 - [ ] Cidade (string)
-                - [ ] Nível Início (not null - integer, de 0 a 100)
+                    - [ ] O jogo não deve permitir informar a cidade se o país não for Brasil.
+                    - [ ] O jogo deve permitir a escolha da cidade de acordo com o estado selecionado.
+                - [X] Nível Início (not null - integer, de 0 a 100)
                 - [ ] Estádio (id do estádio)
-                - [ ] Cor Primária (not null - rgb)
-                - [ ] Cor Secundária (not null - rgb)
+                    - [ ] O jogo deve permitir a escolha de um estádio previamente cadastrado, exibindo nome e gravando o id do estádio.
+                - [X] Cor Primária (not null - rgb)
+                - [X] Cor Secundária (not null - rgb)
                 - [ ] Técnico (id do técnico)
-                - [ ] Jogadores (array/lista de id de jogadores)
+                    - [ ] O jogo deve permitir a escolha de um técnioc previamente cadastrado, exibindo nome e gravando o id do técnico.
         - [ ] O menu personalizar deve ter a opção de Editar Jogadores
             - [ ] O jogo deve permitir a criação de jogadores
             - [ ] O jogo deve permitir a visualização de jogadores criados como tabela com barra de rolagem.

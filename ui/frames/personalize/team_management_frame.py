@@ -1,32 +1,32 @@
 import tkinter as tk
 from tkinter import ttk
-from persistence.team_dao import get_teams_from_db, delete_team_from_db
 from ui.frames.base_frame import BaseFrame
-
+from persistence.config import TEAM_ATTRIBUTES
+from utils.titulo import incluir_titulo
+from utils.team.list_teams import list_teams
+from utils.team.delete_team import delete_team
+from utils.team.edit_team import edit_team
 
 class TeamManagementFrame(BaseFrame):
+    
     def __init__(self, master, switch_frame):
         super().__init__(master, switch_frame)
+        self.team_ids = []
         self.create_widgets()
 
     def create_widgets(self):
-        #Título 
-        title_label = tk.Label(self.frame, text="BruFoot", font=("Arial", 32, "bold"), bg="black", fg="white")
-        title_label.pack(pady=20)
-
-        #subtítulo
-        title_label2 = tk.Label(self.frame, text="Times", font=("Arial", 18), bg="black", fg="white")
-        title_label2.pack(pady=20)
+        
+        incluir_titulo(tk, self, "Times Cadastrados")
 
         # Frame para Treeview e Scrollbar
         table_frame = tk.Frame(self.frame)
         table_frame.pack(pady=10, fill=tk.BOTH, expand=True)
 
-        self.tree = ttk.Treeview(table_frame, columns=("id", "name", "city", "stadium"), show="headings")
-        self.tree.heading("id", text="ID")
-        self.tree.heading("name", text="Nome")
-        self.tree.heading("city", text="Cidade")
-        self.tree.heading("stadium", text="Estádio")
+        columns = tuple(attr[0] for attr in TEAM_ATTRIBUTES)
+        self.tree = ttk.Treeview(table_frame, columns=columns, show="headings")
+
+        for attr in TEAM_ATTRIBUTES:
+            self.tree.heading(attr[0], text=attr[3])
 
         # Scrollbars
         scrollbar_y = ttk.Scrollbar(table_frame, orient=tk.VERTICAL, command=self.tree.yview)
@@ -42,10 +42,37 @@ class TeamManagementFrame(BaseFrame):
         table_frame.grid_columnconfigure(0, weight=1)
 
         # Botões
-        tk.Button(self.frame, text="Criar Novo Time", command=self.add_team_menu).pack(pady=10)
-        tk.Button(self.frame, text="Editar Time", command=self.edit_team).pack(pady=10)
-        tk.Button(self.frame, text="Excluir Time", command=self.delete_team).pack(pady=10)
-        tk.Button(self.frame, text="Voltar", command=self.return_to_personalize_menu).pack(pady=10)
+        tk.Button(
+            self.frame, 
+            text="Criar Novo Time", 
+            command=self.add_team_menu
+            ).pack(pady=10)
+        
+        tk.Button(
+            self.frame, 
+            text="Editar Time", 
+            command=lambda: edit_team(
+                self.tree, 
+                self.team_ids, 
+                self.switch_frame_to_edit_team
+            )
+        ).pack(pady=10)
+
+        tk.Button(
+            self.frame, 
+            text="Excluir Time", 
+            command=lambda: delete_team(
+                self.tree, 
+                self.team_ids, 
+                self.update_teams_list
+            )
+        ).pack(pady=10)
+
+        tk.Button(
+            self.frame, 
+            text="Voltar", 
+            command=self.return_to_personalize_menu
+        ).pack(pady=10)
 
     def return_to_personalize_menu(self):
         from ui.frames.personalize_menu_frame import PersonalizeMenuFrame
@@ -55,44 +82,14 @@ class TeamManagementFrame(BaseFrame):
         from ui.frames.personalize.team_add_frame import TeamAddFrame
         self.switch_frame(TeamAddFrame)   
 
-    def edit_team(self):
-        selected_item = self.tree.selection()
-        if selected_item:
-            item = self.tree.item(selected_item)
-            team_data = item['values']
-            self.switch_frame_to_edit_team(team_data)
-        else:
-            tk.messagebox.showerror("Erro", "Nenhum time selecionado.")
-
-    def switch_frame_to_edit_team(self, team_data):
+    def switch_frame_to_edit_team(self, team_data, team_id):
         from ui.frames.personalize.team_edit_frame import TeamEditFrame
-        frame = TeamEditFrame(self.master, self.switch_frame, team_data)
+        frame = TeamEditFrame(self.master, self.switch_frame, team_data, team_id)
         frame.grid(row=0, column=0, sticky="nsew")
         frame.tkraise()
 
-    def delete_team(self):
-        selected_item = self.tree.selection()
-        if selected_item:
-            item = self.tree.item(selected_item)
-            team_id = item['values'][0]  # A ID do time é a primeira coluna
-            delete_team_from_db(team_id)
-            self.update_teams_list()
-        else:
-            tk.messagebox.showerror("Erro", "Nenhum time selecionado.")
-
-    def list_teams(self):
-        teams = get_teams_from_db()
-        # Limpar a tabela antes de preencher com os dados atualizados
-        for item in self.tree.get_children():
-            self.tree.delete(item)
-        if not teams:
-            self.tree.insert("", tk.END, values=("Não há registros.", "", ""))
-        else:
-            for team in teams:
-                self.tree.insert("", tk.END, values=(team['id'], team['name'], team['city'], team['stadium_id']))
-
     def update_teams_list(self):
-        self.list_teams()
+        list_teams(self, tk)
 
     def on_show_frame(self):
         self.update_teams_list()

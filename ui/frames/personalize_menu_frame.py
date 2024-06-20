@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from ui.frames.base_frame import BaseFrame
+from utils.titulo import incluir_titulo
 
 class PersonalizeMenuFrame(BaseFrame):
     def __init__(self, master, switch_frame):
@@ -9,13 +10,7 @@ class PersonalizeMenuFrame(BaseFrame):
 
     def create_widgets(self):
 
-        #Título 
-        title_label = tk.Label(self.frame, text="BruFoot", font=("Arial", 32, "bold"), bg="black", fg="white")
-        title_label.pack(pady=20)
-
-        #subtítulo
-        title_label2 = tk.Label(self.frame, text="Editar", font=("Arial", 18), bg="black", fg="white")
-        title_label2.pack(pady=20)
+        incluir_titulo(tk, self, "Menu de Edição")
 
         tk.Button(self.frame, text="Times", command=self.open_team_management).pack(pady=10)
         tk.Button(self.frame, text="Jogadores", command=self.not_implemented).pack(pady=10)
