@@ -79,11 +79,11 @@ class TeamManagementFrame(BaseFrame):
         self.switch_frame(PersonalizeMenuFrame)  
 
     def add_team_menu(self):
-        from ui.frames.personalize.team_add_frame import TeamAddFrame
+        from ui.frames.team.team_add_frame import TeamAddFrame
         self.switch_frame(TeamAddFrame)   
 
     def switch_frame_to_edit_team(self, team_data, team_id):
-        from ui.frames.personalize.team_edit_frame import TeamEditFrame
+        from ui.frames.team.team_edit_frame import TeamEditFrame
         frame = TeamEditFrame(self.master, self.switch_frame, team_data, team_id)
         frame.grid(row=0, column=0, sticky="nsew")
         frame.tkraise()

@@ -22,7 +22,7 @@ class PersonalizeMenuFrame(BaseFrame):
         messagebox.showinfo("Info", "Funcionalidade ainda não implementada")
 
     def open_team_management(self):
-        from ui.frames.personalize.team_management_frame import TeamManagementFrame
+        from ui.frames.team.team_management_frame import TeamManagementFrame
         self.switch_frame(TeamManagementFrame)
 
     def return_to_main_menu(self):

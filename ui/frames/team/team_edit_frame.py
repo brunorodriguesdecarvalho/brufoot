@@ -1,4 +1,4 @@
-from ui.frames.personalize.team_base_frame import BaseTeamFrame
+from ui.frames.team.team_base_frame import BaseTeamFrame
 from utils.team.save_team import save_team
 from persistence.config import TEAM_ATTRIBUTES
 

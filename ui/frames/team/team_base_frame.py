@@ -52,7 +52,7 @@ class BaseTeamFrame(BaseFrame):
         ).pack(side="left", padx=5)
 
     def return_to_team_management_menu(self):
-        from ui.frames.personalize.team_management_frame import TeamManagementFrame
+        from ui.frames.team.team_management_frame import TeamManagementFrame
         self.switch_frame(TeamManagementFrame)
 
     def update_color_preview(self):
